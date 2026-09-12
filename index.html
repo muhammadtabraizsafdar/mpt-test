@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>CSS MPT Practice Assessment - 150 Mixed MCQs</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --header-bg: rgba(255, 255, 255, 0.92);
+      --badge-bg: #eef2ff;
+      --badge-text: #4f46e5;
+      --opt-bg: #ffffff;
+      --opt-hover: #f1f5f9;
+      --correct-bg: #f0fdf4;
+      --correct-border: #22c55e;
+      --correct-text: #14532d;
+      --wrong-bg: #fef2f2;
+      --wrong-border: #ef4444;
+      --wrong-text: #7f1d1d;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="dark"] {
+      --primary: #818cf8;
+      --primary-hover: #6366f1;
+      --bg: #090d16;
+      --card-bg: #131b2e;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #1e293b;
+      --header-bg: rgba(19, 27, 46, 0.92);
+      --badge-bg: #1e1b4b;
+      --badge-text: #c7d2fe;
+      --opt-bg: #182238;
+      --opt-hover: #22304d;
+      --correct-bg: #052e16;
+      --correct-border: #16a34a;
+      --correct-text: #86efac;
+      --wrong-bg: #450a0a;
+      --wrong-border: #dc2626;
+      --wrong-text: #fca5a5;
+      --shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 50px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--header-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      z-index: 100;
+      padding: 12px 16px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .header-content {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .title-group h1 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .title-group p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .theme-toggle-btn {
+      background: var(--opt-bg);
+      border: 1.5px solid var(--border);
+      color: var(--text);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+
+    .theme-toggle-btn:active {
+      transform: scale(0.9);
+    }
+
+    .stats-badge {
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 5px;
+      background: var(--border);
+      border-radius: 3px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 16px auto;
+      padding: 0 14px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1.5px solid var(--border);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
+    }
+
+    @media (min-width: 640px) {
+      .card {
+        padding: 22px;
+        margin-bottom: 18px;
+      }
+      .title-group h1 {
+        font-size: 1.2rem;
+      }
+      .title-group p {
+        font-size: 0.85rem;
+      }
+    }
+
+    .card.answered-correct {
+      border-color: var(--correct-border);
+      background: var(--correct-bg);
+    }
+
+    .card.answered-wrong {
+      border-color: var(--wrong-border);
+      background: var(--wrong-bg);
+    }
+
+    .q-title {
+      font-weight: 600;
+      font-size: 0.98rem;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+
+    .q-num {
+      display: inline-block;
+      font-weight: 800;
+      color: var(--primary);
+      margin-right: 6px;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    @media (min-width: 680px) {
+      .options-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .opt-label {
+      display: flex;
+      align-items: center;
+      padding: 14px 14px;
+      min-height: 48px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      background: var(--opt-bg);
+      color: var(--text);
+      font-size: 0.92rem;
+      line-height: 1.4;
+      transition: all 0.2s;
+      user-select: none;
+      word-break: break-word;
+    }
+
+    .opt-label:not(.disabled):hover {
+      background: var(--opt-hover);
+      border-color: var(--primary);
+    }
+
+    .opt-label input[type="radio"] {
+      margin-right: 12px;
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      accent-color: var(--primary);
+    }
+
+    .opt-label.disabled {
+      cursor: not-allowed;
+      opacity: 0.88;
+    }
+
+    .opt-label.selected-correct {
+      border-color: var(--correct-border) !important;
+      background: var(--correct-bg) !important;
+      font-weight: 700;
+      color: var(--correct-text) !important;
+    }
+
+    .opt-label.selected-wrong {
+      border-color: var(--wrong-border) !important;
+      background: var(--wrong-bg) !important;
+      font-weight: 700;
+      color: var(--wrong-text) !important;
+    }
+
+    /* Floating Feedback Reactions */
+    #reaction-overlay {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      pointer-events: none;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    #reaction-overlay.show-kiss {
+      transform: translate(-50%, -50%) scale(1);
+      animation: kissEffect 1.2s forwards;
+    }
+
+    #reaction-overlay.show-angry {
+      transform: translate(-50%, -50%) scale(1);
+      animation: angryEffect 1.2s forwards;
+    }
+
+    .reaction-emoji {
+      font-size: 5.5rem;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.25));
+    }
+
+    .reaction-text {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-top: 8px;
+      padding: 6px 18px;
+      border-radius: 9999px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    }
+
+    .kiss-text {
+      background: #fdf2f8;
+      color: #db2777;
+    }
+
+    .angry-text {
+      background: #fef2f2;
+      color: #dc2626;
+    }
+
+    @keyframes kissEffect {
+      0% { transform: translate(-50%, -50%) scale(0.2) rotate(-15deg); opacity: 0; }
+      35% { transform: translate(-50%, -50%) scale(1.2) rotate(5deg); opacity: 1; }
+      70% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+      100% { transform: translate(-50%, -70%) scale(0.8); opacity: 0; }
+    }
+
+    @keyframes angryEffect {
+      0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0; }
+      20% { transform: translate(-50%, -50%) scale(1.2) rotate(-14deg); opacity: 1; }
+      35% { transform: translate(-50%, -50%) scale(1.1) rotate(14deg); }
+      50% { transform: translate(-50%, -50%) scale(1.1) rotate(-10deg); }
+      65% { transform: translate(-50%, -50%) scale(1.1) rotate(10deg); }
+      80% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+      100% { transform: translate(-50%, -20%) scale(0.7); opacity: 0; }
+    }
+
+    /* Warning Toast for Refresh Attempts */
+    #warning-toast {
+      display: none;
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 420px;
+      background: #0f172a;
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      z-index: 10000;
+      border-left: 6px solid #f59e0b;
+      font-size: 1rem;
+      font-weight: 700;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    #warning-toast.show {
+      display: flex;
+      animation: toastBounce 0.35s ease-out;
+    }
+
+    @keyframes toastBounce {
+      0% { transform: translate(-50%, 40px); opacity: 0; }
+      100% { transform: translate(-50%, 0); opacity: 1; }
+    }
+
+    /* Footer & Submit */
+    .submit-section {
+      text-align: center;
+      margin: 30px 0 15px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      max-width: 340px;
+      background: var(--primary);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 15px 28px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.97);
+    }
+
+    #final-report {
+      display: none;
+      background: var(--card-bg);
+      border: 2px solid var(--primary);
+      border-radius: 14px;
+      padding: 24px;
+      margin-top: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .score-big {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--primary);
+      margin: 8px 0;
+    }
+
+    /* Gradient Credit Signature */
+    .credit-container {
+      text-align: center;
+      margin-top: 35px;
+      padding: 10px 0;
+    }
+
+    .gradient-credit {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      user-select: none;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+    }
+
+    .gradient-heart {
+      background: linear-gradient(135deg, #f43f5e, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      font-style: normal;
+      font-size: 1.15rem;
+      animation: heartbeat 1.6s infinite ease-in-out;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="title-group">
+      <h1>CSS MPT Assessment</h1>
+      <p>150 Mixed MCQs &bull; Permanent Selection</p>
+    </div>
+    <div class="header-actions">
+      <button class="theme-toggle-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle Theme">🌙</button>
+      <div class="stats-badge">
+        <span id="answered-count">0</span> / 150
+      </div>
+    </div>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-bar"></div>
+  </div>
+</header>
+
+<div class="container" id="quiz-root"></div>
+
+<div class="container submit-section">
+  <button class="btn-submit" onclick="showResults()">Submit Test & View Results</button>
+  
+  <div id="final-report">
+    <h2>Evaluation Complete! 🎉</h2>
+    <div class="score-big" id="score-display">0 / 150</div>
+    <p id="feedback-msg" style="font-size: 1.05rem; color: var(--text-muted); margin-top: 8px;"></p>
+  </div>
+
+  <div class="credit-container">
+    <div class="gradient-credit">
+      Designed by BAEZY with <span class="gradient-heart">❤️</span>
+    </div>
+  </div>
+</div>
+
+<div id="reaction-overlay">
+  <div class="reaction-emoji" id="reaction-emoji">😘</div>
+  <div class="reaction-text" id="reaction-text">Correct!</div>
+</div>
+
+<div id="warning-toast">
+  <span>⚠️</span> Don't do this Baby Girl
+</div>
+
+<script>
+// 150 questions scrambled & interleaved across all subjects
+const quizData = [
+  { q: "The chemical symbol for potassium is:", opts: ["P", "Pt", "Po", "K"], ans: 3 },
+  { q: "The Lahore Resolution was passed on:", opts: ["23 March 1940", "14 August 1947", "25 December 1939", "3 June 1947"], ans: 0 },
+  { q: "Choose the synonym for: BENEVOLENT", opts: ["Hostile", "Kind-hearted", "Talkative", "Wealthy"], ans: 1 },
+  { q: "The total number of Surahs in the Holy Quran is:", opts: ["112", "114", "116", "120"], ans: 1 },
+  { q: "15% of 480 is:", opts: ["62", "68", "72", "76"], ans: 2 },
+  { q: "Complete the series: 2, 6, 12, 20, 30, ___", opts: ["36", "40", "42", "44"], ans: 2 },
+  { q: "She is married ___ a doctor.", opts: ["by", "for", "with", "to"], ans: 3 },
+  { q: "The first Governor-General of Pakistan was:", opts: ["Ghulam Muhammad", "Liaquat Ali Khan", "Quaid-e-Azam Muhammad Ali Jinnah", "Khawaja Nazimuddin"], ans: 2 },
+  { q: "Deficiency of which vitamin causes scurvy?", opts: ["Vitamin B12", "Vitamin D", "Vitamin C", "Vitamin A"], ans: 2 },
+  { q: "Choose the antonym for: OPAQUE", opts: ["Transparent", "Dark", "Solid", "Rough"], ans: 0 },
+  { q: "The first revelation was received by the Holy Prophet in:", opts: ["Cave Hira", "Mount Safa", "Cave Thaur", "Masjid-e-Nabvi"], ans: 0 },
+  { q: "The average of the first ten natural numbers is:", opts: ["5", "5.5", "6", "6.5"], ans: 1 },
+  { q: "Which one does not belong with the others?", opts: ["Cube", "Triangle", "Square", "Rectangle"], ans: 0 },
+  { q: "'To turn a deaf ear' means:", opts: ["To become deaf", "To refuse to listen", "To listen carefully", "To whisper"], ans: 1 },
+  { q: "The hardest naturally occurring substance is:", opts: ["Corundum", "Quartz", "Diamond", "Topaz"], ans: 2 },
+  { q: "The first Prime Minister of Pakistan was:", opts: ["Feroz Khan Noon", "Liaquat Ali Khan", "Khawaja Nazimuddin", "Muhammad Ali Bogra"], ans: 1 },
+  { q: "Choose the synonym for: ABATE", opts: ["Delay", "Diminish", "Increase", "Confuse"], ans: 1 },
+  { q: "The first Surah revealed was:", opts: ["Al-Baqarah", "Al-Fatiha", "Al-Alaq", "Al-Muddaththir"], ans: 2 },
+  { q: "If x / 5 = 12, then x equals:", opts: ["17", "50", "60", "72"], ans: 2 },
+  { q: "If MONDAY is coded as NPOEBZ, then FRIDAY is coded as:", opts: ["GSJFBZ", "GRJEBZ", "GSKEBZ", "GSJEBZ"], ans: 3 },
+  { q: "He insisted ___ paying the bill.", opts: ["at", "to", "on", "for"], ans: 2 },
+  { q: "Pakistan's first Constitution was promulgated in:", opts: ["1949", "1956", "1962", "1973"], ans: 1 },
+  { q: "Which blood group is called the universal donor?", opts: ["A negative", "O negative", "B positive", "AB positive"], ans: 1 },
+  { q: "Choose the antonym for: AMATEUR", opts: ["Volunteer", "Enthusiast", "Professional", "Beginner"], ans: 2 },
+  { q: "The Hijrah (migration) to Madina took place in:", opts: ["610 CE", "615 CE", "622 CE", "630 CE"], ans: 2 },
+  { q: "Simple interest on Rs. 20,000 at 8% per annum for 3 years is:", opts: ["Rs. 5,200", "Rs. 3,200", "Rs. 6,400", "Rs. 4,800"], ans: 3 },
+  { q: "Doctor : Hospital :: Teacher : ___", opts: ["Lesson", "Student", "School", "Book"], ans: 2 },
+  { q: "'A bolt from the blue' means:", opts: ["A sudden, unexpected event", "A minor problem", "A distant journey", "A loud noise"], ans: 0 },
+  { q: "The Constitution of 1973 came into force on:", opts: ["23 March 1973", "14 August 1973", "1 July 1973", "20 December 1973"], ans: 1 },
+  { q: "Atmospheric pressure is measured by a:", opts: ["Hygrometer", "Manometer", "Anemometer", "Barometer"], ans: 3 },
+  { q: "Choose the synonym for: CANDID", opts: ["Careless", "Cheerful", "Frank", "Secretive"], ans: 2 },
+  { q: "The number of pillars (Arkan) of Islam is:", opts: ["Three", "Four", "Five", "Seven"], ans: 2 },
+  { q: "A train 200 metres long, running at 72 km/h crosses a pole in:", opts: ["8 seconds", "10 seconds", "12 seconds", "15 seconds"], ans: 1 },
+  { q: "Pointing to a photograph, a man said, 'She is the daughter of my grandfather's only son.' How is she related to him?", opts: ["His niece", "His cousin", "His sister", "His daughter"], ans: 2 },
+  { q: "The book consists ___ ten chapters.", opts: ["from", "with", "of", "in"], ans: 2 },
+  { q: "The Indus Waters Treaty between Pakistan and India was signed in:", opts: ["1948", "1955", "1960", "1965"], ans: 2 },
+  { q: "The speed of light in vacuum is approximately:", opts: ["3 × 10^6 m/s", "3 × 10^8 m/s", "3 × 10^10 m/s", "3 × 10^5 m/s"], ans: 1 },
+  { q: "Choose the antonym for: SCARCITY", opts: ["Abundance", "Shortage", "Poverty", "Demand"], ans: 0 },
+  { q: "The rate of Zakat on savings is:", opts: ["2%", "2.5%", "5%", "10%"], ans: 1 },
+  { q: "An amount of Rs. 240 is divided in the ratio 3 : 5. The larger share is:", opts: ["Rs. 150", "Rs. 120", "Rs. 90", "Rs. 160"], ans: 0 },
+  { q: "Complete the series: 5, 10, 20, 40, ___", opts: ["60", "70", "80", "100"], ans: 2 },
+  { q: "'To beat about the bush' means:", opts: ["To avoid the main point", "To work hard", "To search thoroughly", "To speak directly"], ans: 0 },
+  { q: "Under the Indus Waters Treaty, Pakistan was given exclusive use of:", opts: ["Jhelum, Beas and Indus", "Chenab, Ravi and Sutlej", "Indus, Jhelum and Chenab", "Ravi, Beas and Sutlej"], ans: 2 },
+  { q: "The functional unit of the kidney is the:", opts: ["Neuron", "Alveolus", "Villus", "Nephron"], ans: 3 },
+  { q: "Choose the synonym for: LUCID", opts: ["Glowing", "Obscure", "Clear", "Lazy"], ans: 2 },
+  { q: "The longest Surah of the Holy Quran is:", opts: ["An-Nisa", "Al-Baqarah", "Al-Maidah", "Al-Imran"], ans: 1 },
+  { q: "The square root of 1764 is:", opts: ["38", "42", "44", "46"], ans: 1 },
+  { q: "Which one is the odd one out?", opts: ["Silver", "Iron", "Copper", "Wood"], ans: 3 },
+  { q: "He is capable ___ doing this job.", opts: ["in", "for", "to", "of"], ans: 3 },
+  { q: "The highest civil award of Pakistan is:", opts: ["Nishan-e-Haider", "Hilal-e-Imtiaz", "Sitara-e-Imtiaz", "Nishan-e-Pakistan"], ans: 3 },
+  { q: "The most abundant gas in the Earth's atmosphere is:", opts: ["Nitrogen", "Argon", "Oxygen", "Carbon dioxide"], ans: 0 },
+  { q: "Choose the antonym for: HOSTILE", opts: ["Friendly", "Aggressive", "Silent", "Foreign"], ans: 0 },
+  { q: "Which Surah is described as the heart of the Quran?", opts: ["Al-Mulk", "Al-Ikhlas", "Ya-Sin", "Ar-Rahman"], ans: 2 },
+  { q: "A shirt is sold for Rs. 1,200 after a 20% discount. Its original price was:", opts: ["Rs. 1,340", "Rs. 1,560", "Rs. 1,500", "Rs. 1,440"], ans: 2 },
+  { q: "A is taller than B, and B is taller than C. Who is the shortest?", opts: ["A", "Cannot be determined", "B", "C"], ans: 3 },
+  { q: "'To bury the hatchet' means:", opts: ["To make peace", "To forget a lesson", "To start a quarrel", "To hide a weapon"], ans: 0 },
+  { q: "The highest military gallantry award of Pakistan is:", opts: ["Nishan-e-Haider", "Sitara-e-Jurat", "Hilal-e-Jurat", "Tamgha-e-Jurat"], ans: 0 },
+  { q: "The green pigment in plants responsible for photosynthesis is:", opts: ["Xanthophyll", "Haemoglobin", "Carotene", "Chlorophyll"], ans: 3 },
+  { q: "Choose the synonym for: METICULOUS", opts: ["Extremely careful", "Careless", "Generous", "Hasty"], ans: 0 },
+  { q: "The Battle of Uhud was fought in:", opts: ["2 A.H.", "3 A.H.", "5 A.H.", "6 A.H."], ans: 1 },
+  { q: "The LCM of 12 and 18 is:", opts: ["6", "24", "36", "72"], ans: 2 },
+  { q: "Complete the series: AZ, BY, CX, ___", opts: ["DV", "DX", "EW", "DW"], ans: 3 },
+  { q: "I congratulated him ___ his success.", opts: ["on", "at", "with", "for"], ans: 0 },
+  { q: "The national language of Pakistan, as declared in the Constitution, is:", opts: ["Sindhi", "English", "Urdu", "Punjabi"], ans: 2 },
+  { q: "Normal human body temperature is approximately:", opts: ["35°C", "37°C", "39°C", "41°C"], ans: 1 },
+  { q: "Choose the antonym for: CONCISE", opts: ["Verbose", "Clear", "Brief", "Accurate"], ans: 0 },
+  { q: "The Treaty of Hudaybiyyah was concluded in:", opts: ["4 A.H.", "5 A.H.", "6 A.H.", "8 A.H."], ans: 2 },
+  { q: "The value of 2^5 × 2^3 is:", opts: ["64", "128", "256", "512"], ans: 2 },
+  { q: "Which number does not fit in the group: 3, 5, 7, 9, 11?", opts: ["3", "5", "9", "11"], ans: 2 },
+  { q: "'At daggers drawn' means:", opts: ["Fully prepared", "Bitterly hostile", "Very close friends", "Deeply confused"], ans: 1 },
+  { q: "Pakistan became a member of the United Nations in:", opts: ["1947", "1948", "1950", "1955"], ans: 0 },
+  { q: "Which planet is known as the Red Planet?", opts: ["Jupiter", "Mercury", "Venus", "Mars"], ans: 3 },
+  { q: "Choose the synonym for: OBSOLETE", opts: ["Out of date", "Modern", "Rare", "Compulsory"], ans: 0 },
+  { q: "The Conquest of Makkah took place in:", opts: ["6 A.H.", "7 A.H.", "8 A.H.", "10 A.H."], ans: 2 },
+  { q: "The area of a circle of radius 7 cm (π = 22/7) is:", opts: ["14 cm²", "144 cm²", "154 cm²", "176 cm²"], ans: 2 },
+  { q: "Complete the series: 1, 4, 9, 16, ___", opts: ["20", "24", "25", "36"], ans: 2 },
+  { q: "Each of the students ___ been informed.", opts: ["are", "has", "have", "were"], ans: 1 },
+  { q: "The Simla Agreement between Pakistan and India was signed in:", opts: ["1966", "1971", "1972", "1974"], ans: 2 },
+  { q: "The pH of pure water at 25°C is:", opts: ["0", "7", "10", "14"], ans: 1 },
+  { q: "Choose the antonym for: HASTEN", opts: ["Arrive", "Prepare", "Delay", "Hurry"], ans: 2 },
+  { q: "The first Caliph of Islam was:", opts: ["Hazrat Ali (RA)", "Hazrat Umar (RA)", "Hazrat Usman (RA)", "Hazrat Abu Bakr (RA)"], ans: 3 },
+  { q: "An article bought for Rs. 800 is sold for Rs. 920. The profit percentage is:", opts: ["12%", "15%", "18%", "20%"], ans: 1 },
+  { q: "Pen : Write :: Knife : ___", opts: ["Sharp", "Steel", "Cut", "Kitchen"], ans: 2 },
+  { q: "'Once in a blue moon' means:", opts: ["Very rarely", "At night", "By chance", "Very frequently"], ans: 0 },
+  { q: "The Tashkent Declaration was signed in:", opts: ["1962", "1965", "1966", "1968"], ans: 2 },
+  { q: "Insulin is secreted by the:", opts: ["Adrenal gland", "Thyroid", "Liver", "Pancreas"], ans: 3 },
+  { q: "Choose the synonym for: PRUDENT", opts: ["Wise and cautious", "Reckless", "Proud", "Poor"], ans: 0 },
+  { q: "The Holy Quran was first compiled in the form of a single book during the caliphate of:", opts: ["Hazrat Umar (RA)", "Hazrat Usman (RA)", "Hazrat Ali (RA)", "Hazrat Abu Bakr (RA)"], ans: 3 },
+  { q: "The sum of the interior angles of a pentagon is:", opts: ["360°", "450°", "540°", "720°"], ans: 2 },
+  { q: "If today is Wednesday, what day will it be after 61 days?", opts: ["Tuesday", "Thursday", "Monday", "Sunday"], ans: 2 },
+  { q: "If I ___ you, I would accept the offer.", opts: ["am", "will be", "was", "were"], ans: 3 },
+  { q: "The One Unit scheme was established in:", opts: ["1954", "1955", "1958", "1962"], ans: 1 },
+  { q: "The number of chromosomes in a normal human body cell is:", opts: ["23", "44", "46", "48"], ans: 2 },
+  { q: "Choose the antonym for: HUMBLE", opts: ["Poor", "Modest", "Arrogant", "Gentle"], ans: 2 },
+  { q: "Fasting in the month of Ramadan was made obligatory in:", opts: ["1 A.H.", "2 A.H.", "3 A.H.", "5 A.H."], ans: 1 },
+  { q: "If 5 workers complete a job in 12 days, how long will 6 workers take?", opts: ["8 days", "10 days", "11 days", "14 days"], ans: 1 },
+  { q: "Complete the series: 100, 96, 89, 79, ___", opts: ["64", "66", "68", "70"], ans: 1 },
+  { q: "'To smell a rat' means:", opts: ["To fall ill", "To search for food", "To be disgusted", "To suspect something wrong"], ans: 3 },
+  { q: "East Pakistan separated from Pakistan in:", opts: ["1969", "1970", "1971", "1972"], ans: 2 },
+  { q: "The chemical name of common table salt is:", opts: ["Calcium carbonate", "Sodium bicarbonate", "Sodium chloride", "Potassium chloride"], ans: 2 },
+  { q: "Choose the synonym for: TENACIOUS", opts: ["Temporary", "Persistent", "Angry", "Weak"], ans: 1 },
+  { q: "The number of Takbirs in Salat-ul-Janazah is:", opts: ["Three", "Four", "Five", "Six"], ans: 1 },
+  { q: "0.25 expressed as a fraction in lowest terms is:", opts: ["1/2", "1/4", "2/5", "1/5"], ans: 1 },
+  { q: "Which one is the odd one out?", opts: ["Lion", "Tiger", "Leopard", "Elephant"], ans: 3 },
+  { q: "He has been living here ___ 2010.", opts: ["by", "from", "since", "for"], ans: 2 },
+  { q: "Pakistan conducted its nuclear tests at Chagai on:", opts: ["11 May 1998", "28 May 1998", "30 May 1998", "6 September 1998"], ans: 1 },
+  { q: "Which part of the eye controls the amount of light entering it?", opts: ["Iris", "Cornea", "Retina", "Lens"], ans: 0 },
+  { q: "Choose the antonym for: CONVEX", opts: ["Round", "Flat", "Concave", "Curved"], ans: 2 },
+  { q: "Hajj is performed in the Islamic month of:", opts: ["Shawwal", "Ramadan", "Muharram", "Zil Hajj"], ans: 3 },
+  { q: "The news ___ very encouraging.", opts: ["are", "were", "is", "have been"], ans: 2 },
+  { q: "The name 'Pakistan' was proposed by:", opts: ["Allama Iqbal", "Chaudhry Rehmat Ali", "Sir Syed Ahmad Khan", "Liaquat Ali Khan"], ans: 1 },
+  { q: "Sound cannot travel through:", opts: ["Steel", "Vacuum", "Air", "Water"], ans: 1 },
+  { q: "Choose the synonym for: VINDICATE", opts: ["Justify", "Ignore", "Threaten", "Punish"], ans: 0 },
+  { q: "The number of verses in Surah Al-Fatiha is:", opts: ["Seven", "Six", "Five", "Nine"], ans: 0 },
+  { q: "Neither he nor his friends ___ present at the meeting.", opts: ["has been", "were", "is", "was"], ans: 1 },
+  { q: "Allama Iqbal delivered his famous Allahabad Address in:", opts: ["1928", "1930", "1933", "1937"], ans: 1 },
+  { q: "The largest planet in the solar system is:", opts: ["Saturn", "Uranus", "Neptune", "Jupiter"], ans: 3 },
+  { q: "Choose the antonym for: OPTIMIST", opts: ["Idealist", "Realist", "Pessimist", "Activist"], ans: 2 },
+  { q: "Kalima Tayyaba is which of the six Kalimas?", opts: ["First", "Fourth", "Third", "Second"], ans: 0 },
+  { q: "One of my friends ___ a doctor.", opts: ["were", "have", "is", "are"], ans: 2 },
+  { q: "The first capital of Pakistan was:", opts: ["Rawalpindi", "Lahore", "Islamabad", "Karachi"], ans: 3 },
+  { q: "Deficiency of iodine in the diet causes:", opts: ["Beri-beri", "Rickets", "Goitre", "Anaemia"], ans: 2 },
+  { q: "Choose the synonym for: ZENITH", opts: ["Highest point", "Middle", "Beginning", "Lowest point"], ans: 0 },
+  { q: "Lailatul Qadr occurs in the:", opts: ["First ten nights of Ramadan", "Last ten nights of Ramadan", "Nights of Shaban", "Middle ten nights of Ramadan"], ans: 1 },
+  { q: "He prefers tea ___ coffee.", opts: ["than", "from", "to", "over than"], ans: 2 },
+  { q: "K-2, the second highest peak in the world, lies in the:", opts: ["Hindu Kush range", "Karakoram range", "Sulaiman range", "Himalaya range"], ans: 1 },
+  { q: "Nitrogen-fixing bacteria found in the root nodules of leguminous plants are:", opts: ["E. coli", "Lactobacillus", "Rhizobium", "Clostridium"], ans: 2 },
+  { q: "Choose the antonym for: ASCEND", opts: ["Climb", "Descend", "Extend", "Rise"], ans: 1 },
+  { q: "The Farewell Pilgrimage (Hajjatul Wida) was performed in:", opts: ["8 A.H.", "9 A.H.", "10 A.H."], ans: 2 },
+  { q: "Hardly had he arrived ___ it started raining.", opts: ["then", "than", "that", "when"], ans: 3 },
+  { q: "The 'powerhouse of the cell' is the:", opts: ["Nucleus", "Ribosome", "Mitochondrion", "Golgi body"], ans: 2 },
+  { q: "Choose the synonym for: FRUGAL", opts: ["Fragile", "Extravagant", "Fertile", "Thrifty"], ans: 3 },
+  { q: "She is senior ___ me in this department.", opts: ["over", "from", "than", "to"], ans: 3 },
+  { q: "The ozone layer is located in the:", opts: ["Mesosphere", "Stratosphere", "Thermosphere", "Troposphere"], ans: 1 },
+  { q: "Choose the synonym for: GARRULOUS", opts: ["Excessively talkative", "Gloomy", "Brave", "Silent"], ans: 0 },
+  { q: "The team ___ playing very well this season.", opts: ["have", "were", "is", "are"], ans: 2 },
+  { q: "The acid present in the human stomach is:", opts: ["Nitric acid", "Acetic acid", "Hydrochloric acid", "Sulphuric acid"], ans: 2 },
+  { q: "Choose the synonym for: IMPEDE", opts: ["Approve", "Assist", "Hinder", "Repeat"], ans: 2 },
+  { q: "'Crocodile tears' means:", opts: ["A false show of grief", "Sudden anger", "Tears of joy", "Genuine sorrow"], ans: 0 },
+  { q: "LPG (liquefied petroleum gas) consists mainly of:", opts: ["Butane and propane", "Methane", "Ethylene", "Hydrogen"], ans: 0 },
+  { q: "Choose the synonym for: NEFARIOUS", opts: ["Nervous", "Generous", "Wicked", "Famous"], ans: 2 },
+  { q: "Choose the correct sentence:", opts: ["Neither of the two answers were correct.", "Neither of the two answers are correct.", "Neither of the two answer are correct.", "Neither of the two answers is correct."], ans: 3 },
+  { q: "Which blood cells are chiefly responsible for fighting infection?", opts: ["Red blood cells", "White blood cells", "Platelets", "Plasma cells only"], ans: 1 },
+  { q: "Choose the synonym for: EPHEMERAL", opts: ["Heavenly", "Enormous", "Everlasting", "Short-lived"], ans: 3 },
+  { q: "He is one of the best students who ___ ever studied in this college.", opts: ["had been", "is", "has", "have"], ans: 3 },
+  { q: "Dengue fever is transmitted by:", opts: ["Housefly", "Anopheles mosquito", "Sand fly", "Aedes aegypti mosquito"], ans: 3 },
+  { q: "The SI unit of force is the:", opts: ["Newton", "Watt", "Joule", "Pascal"], ans: 0 },
+  { q: "Which metal is liquid at room temperature?", opts: ["Mercury", "Sodium", "Zinc", "Lead"], ans: 0 },
+  { q: "The hormone thyroxine is secreted by the:", opts: ["Pancreas", "Thyroid gland", "Liver", "Pituitary gland"], ans: 1 },
+  { q: "The direct conversion of a solid into a gas without passing through the liquid state is called:", opts: ["Sublimation", "Evaporation", "Condensation", "Distillation"], ans: 0 }
+];
+
+const STORAGE_KEY = "css_mpt_mixed_150_v2";
+const THEME_KEY = "css_mpt_theme_choice";
+
+let savedAnswers = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+
+// Theme Management
+function initTheme() {
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme) {
+    applyTheme(savedTheme);
+  } else {
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    applyTheme(prefersDark ? "dark" : "light");
+  }
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  const btn = document.getElementById("theme-btn");
+  if (btn) {
+    btn.textContent = theme === "dark" ? "☀️" : "🌙";
+  }
+  localStorage.setItem(THEME_KEY, theme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme");
+  applyTheme(current === "dark" ? "light" : "dark");
+}
+
+function renderQuiz() {
+  const root = document.getElementById("quiz-root");
+  root.innerHTML = "";
+
+  quizData.forEach((item, index) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.id = `q-card-${index}`;
+
+    const isAnswered = savedAnswers.hasOwnProperty(index);
+    if (isAnswered) {
+      const userSelected = savedAnswers[index];
+      if (userSelected === item.ans) {
+        card.classList.add("answered-correct");
+      } else {
+        card.classList.add("answered-wrong");
+      }
+    }
+
+    const title = document.createElement("div");
+    title.className = "q-title";
+    title.innerHTML = `<span class="q-num">Q${index + 1}.</span> ${item.q}`;
+    card.appendChild(title);
+
+    const optsGrid = document.createElement("div");
+    optsGrid.className = "options-grid";
+
+    const optLetters = ["(A)", "(B)", "(C)", "(D)"];
+
+    item.opts.forEach((optText, optIdx) => {
+      const label = document.createElement("label");
+      label.className = "opt-label";
+      if (isAnswered) label.classList.add("disabled");
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = `question_${index}`;
+      input.value = optIdx;
+      input.disabled = isAnswered;
+
+      if (isAnswered && savedAnswers[index] === optIdx) {
+        input.checked = true;
+        if (optIdx === item.ans) {
+          label.classList.add("selected-correct");
+        } else {
+          label.classList.add("selected-wrong");
+        }
+      }
+
+      input.onchange = () => handleChoice(index, optIdx);
+
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(`${optLetters[optIdx]} ${optText}`));
+      optsGrid.appendChild(label);
+    });
+
+    card.appendChild(optsGrid);
+    root.appendChild(card);
+  });
+
+  updateStats();
+}
+
+function handleChoice(qIdx, selectedOptIdx) {
+  if (savedAnswers.hasOwnProperty(qIdx)) return;
+
+  savedAnswers[qIdx] = selectedOptIdx;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(savedAnswers));
+
+  const isCorrect = (selectedOptIdx === quizData[qIdx].ans);
+  triggerReaction(isCorrect);
+  renderQuiz();
+}
+
+function triggerReaction(isCorrect) {
+  const overlay = document.getElementById("reaction-overlay");
+  const emoji = document.getElementById("reaction-emoji");
+  const text = document.getElementById("reaction-text");
+
+  overlay.className = "";
+
+  if (isCorrect) {
+    emoji.textContent = "😘";
+    text.textContent = "Good Job! 💋";
+    text.className = "reaction-text kiss-text";
+    overlay.classList.add("show-kiss");
+  } else {
+    emoji.textContent = "😡";
+    text.textContent = "Oops! Wrong Answer!";
+    text.className = "reaction-text angry-text";
+    overlay.classList.add("show-angry");
+  }
+
+  setTimeout(() => {
+    overlay.className = "";
+  }, 1300);
+}
+
+function updateStats() {
+  const answeredCount = Object.keys(savedAnswers).length;
+  document.getElementById("answered-count").textContent = answeredCount;
+  const pct = (answeredCount / quizData.length) * 100;
+  document.getElementById("progress-bar").style.width = `${pct}%`;
+}
+
+function showResults() {
+  let score = 0;
+  quizData.forEach((item, idx) => {
+    if (savedAnswers[idx] === item.ans) {
+      score++;
+    }
+  });
+
+  const report = document.getElementById("final-report");
+  const scoreDisplay = document.getElementById("score-display");
+  const feedback = document.getElementById("feedback-msg");
+
+  report.style.display = "block";
+  scoreDisplay.textContent = `${score} / ${quizData.length}`;
+  
+  const percentage = ((score / quizData.length) * 100).toFixed(1);
+  if (score >= 66) {
+    feedback.textContent = `Scored: ${percentage}%. You qualified the test threshold easily! ✨`;
+  } else {
+    feedback.textContent = `Scored: ${percentage}%. Needs a bit more practice, keep going! 💪`;
+  }
+
+  report.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Refresh & Leave Warning Handler
+function showRefreshWarning() {
+  const toast = document.getElementById("warning-toast");
+  toast.classList.add("show");
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3500);
+}
+
+// Intercept browser reload / tab close
+window.addEventListener("beforeunload", (e) => {
+  e.preventDefault();
+  e.returnValue = "Don't do this Baby Girl";
+  return "Don't do this Baby Girl";
+});
+
+// Intercept reload shortcuts on keyboards (F5, Ctrl+R, Cmd+R)
+window.addEventListener("keydown", (e) => {
+  if (
+    (e.which || e.keyCode) === 116 || 
+    ((e.ctrlKey || e.metaKey) && (e.which || e.keyCode) === 82)
+  ) {
+    e.preventDefault();
+    showRefreshWarning();
+  }
+});
+
+// Initialize
+initTheme();
+renderQuiz();
+</script>
+</body>
+</html>
